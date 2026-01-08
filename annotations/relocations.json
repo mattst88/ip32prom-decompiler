@@ -1,0 +1,9 @@
+[
+  {
+    "section": "post1",
+    "rom_start": "0xbfc06fd0",
+    "rom_end": "0xbfc09120",
+    "vma": "0xa0004000",
+    "elf_section": "text_ram"
+  }
+]

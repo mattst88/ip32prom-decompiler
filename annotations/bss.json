@@ -1,0 +1,7 @@
+[
+{ "0x0": "bss_start" },
+{ "0xaa0": "render_base" },
+{ "0xaa4": "crime_base" },
+{ "0xaa8": "gbe_base" },
+{}
+]
