@@ -469,7 +469,6 @@ It seems pretty clear that these unreachable instructions were the result of a c
 ## Accessed memory
 
 I added a pass that marked memory addresses that were accessed by load and store instructions in yellow.
-to check ---4 byte vs 8 byte memory load
 
 ![post1 final structure](images/post1.png)
 
