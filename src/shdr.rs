@@ -8,7 +8,8 @@ use std::fs::File;
 use std::io::Read;
 use std::path::Path;
 
-use crate::hardware::memmap::{ROM_ALIGN, SHDR_MAGIC};
+use crate::hardware::constants::SHDR_MAGIC;
+use crate::hardware::memmap::ROM_ALIGN;
 
 /// SHDR header size in bytes
 pub const SHDR_SIZE: usize = 64;

@@ -1,25 +1,8 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 //! SGI O2 (IP32) memory map constants.
 
-/// Time constants
-pub const EPOC_1970: u32 = 1970;
-pub const SECONDS_IN_1_DAY: u32 = 24 * 60 * 60;
-pub const SECONDS_IN_365_DAYS: u32 = 365 * SECONDS_IN_1_DAY;
-pub const SECONDS_IN_366_DAYS: u32 = 366 * SECONDS_IN_1_DAY;
-
-/// Magic numbers (as big-endian u32)
-pub const ARCS_MAGIC: u32 = 0x5343_5241; // "ARCS"
-pub const ELF_MAGIC: u32 = 0x7f45_4c46; // "\x7fELF"
-pub const GDA_MAGIC: u32 = 0x5846_4552; // "XFER"
-pub const RTSB_MAGIC: u32 = 0x4254_5352; // "RTSB" (Restart Block)
-pub const SGI_LABEL_MAGIC: u32 = 0x0be5_a941; // SGI disk partition label
-pub const SHDR_MAGIC: u32 = 0x5348_4452; // "SHDR"
-
-/// Sentinel values
-pub const HEXDIGIT_INVALID: u32 = 999999; // 0x000f423f - returned by hexdigit() for invalid input
-
-/// ctype table offsets
-pub const CTYPE_TOLOWER: u32 = 0x102; // offset to lowercase mapping in ctype_table
+/// Global Data Area address
+pub const GDA_ADDR: u32 = KSEG0 | 0x400;
 
 /// Memory segment constants
 pub const KSEG0: u32 = 0x8000_0000;

@@ -13,15 +13,17 @@ use crate::annotations::BssNames;
 
 use super::util::create_output_file;
 
-use crate::hardware::constants::SystemConstants;
+use crate::hardware::constants::{
+    ARCS_MAGIC, CTYPE_TOLOWER, ELF_MAGIC, EPOC_1970, GDA_MAGIC, HEXDIGIT_INVALID, RTSB_MAGIC,
+    SECONDS_IN_1_DAY, SECONDS_IN_365_DAYS, SECONDS_IN_366_DAYS, SGI_LABEL_MAGIC, SHDR_MAGIC,
+    SystemConstants, UART_BASE_CLOCK, WARM_START_COOKIE,
+};
 use crate::hardware::memmap::{
-    ARCS_MAGIC, BASE_AUDIO, BASE_CRIME, BASE_I2C, BASE_ISA, BASE_KBD_MS, BASE_MACE_PCI,
-    BASE_RENDER, BASE_RTC, CTYPE_TOLOWER, ELF_MAGIC, EPOC_1970, GDA_MAGIC, HEXDIGIT_INVALID, KSEG0,
-    KSEG1, KSEG2, MACE_ETHERNET, MACE_ISA_EXTERNAL, MACE_PCI, MACE_PERIPHERAL,
+    BASE_AUDIO, BASE_CRIME, BASE_I2C, BASE_ISA, BASE_KBD_MS, BASE_MACE_PCI, BASE_RENDER, BASE_RTC,
+    KSEG0, KSEG1, KSEG2, MACE_ETHERNET, MACE_ISA_EXTERNAL, MACE_PCI, MACE_PERIPHERAL,
     MACE_PERIPHERAL_AUDIO, MACE_PERIPHERAL_I2C, MACE_PERIPHERAL_ISA, MACE_PERIPHERAL_KBD_MS,
     MACE_PERIPHERAL_UST, PHYS_BASE_CRIME, PHYS_BASE_MACE, PHYS_BASE_RENDER, PHYS_SYSTEM_ROM,
-    ROM_ALIGN, ROM_SIZE, RTSB_MAGIC, SECONDS_IN_1_DAY, SECONDS_IN_365_DAYS, SECONDS_IN_366_DAYS,
-    SGI_LABEL_MAGIC, SHDR_MAGIC,
+    ROM_ALIGN, ROM_SIZE,
 };
 use crate::mips::format::{CACHE_OP_NAMES, CACHE_TYPE_NAMES};
 use crate::mips::regs::{CP0_REG_NAMES, GPR_NAMES};
@@ -204,8 +206,19 @@ fn emit_magic_constants(file: &mut File) -> Result<()> {
     emit_define_hex!(file, SHDR_MAGIC, "\"SHDR\"")?;
     writeln!(file)?;
 
+    emit_define_hex!(file, WARM_START_COOKIE)?;
+    writeln!(file)?;
+
     writeln!(file, "/* Sentinel Values */")?;
     emit_define!(file, "HEXDIGIT_INVALID", format_args!("{}\t/* 0x{:08x} */", HEXDIGIT_INVALID, HEXDIGIT_INVALID))?;
+    writeln!(file)?;
+
+    writeln!(file, "/* Hardware Constants */")?;
+    emit_define!(file, "UART_BASE_CLOCK", format_args!("{}", UART_BASE_CLOCK), "1.8432 MHz")?;
+    writeln!(file)?;
+
+    writeln!(file, "/* Global Data Area address */")?;
+    emit_define!(file, "GDA_ADDR", "(KSEG0 | 0x400)")?;
     writeln!(file)?;
 
     writeln!(file, "/* ctype Table Offsets */")?;

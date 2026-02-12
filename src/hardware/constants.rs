@@ -4,6 +4,30 @@
 use super::memmap::*;
 use std::collections::HashMap;
 
+/// Time constants
+pub const EPOC_1970: u32 = 1970;
+pub const SECONDS_IN_1_DAY: u32 = 24 * 60 * 60;
+pub const SECONDS_IN_365_DAYS: u32 = 365 * SECONDS_IN_1_DAY;
+pub const SECONDS_IN_366_DAYS: u32 = 366 * SECONDS_IN_1_DAY;
+
+/// Magic numbers (as big-endian u32)
+pub const ARCS_MAGIC: u32 = 0x5343_5241; // "ARCS"
+pub const ELF_MAGIC: u32 = 0x7f45_4c46; // "\x7fELF"
+pub const GDA_MAGIC: u32 = 0x5846_4552; // "XFER"
+pub const RTSB_MAGIC: u32 = 0x4254_5352; // "RTSB" (Restart Block)
+pub const SGI_LABEL_MAGIC: u32 = 0x0be5_a941; // SGI disk partition label
+pub const SHDR_MAGIC: u32 = 0x5348_4452; // "SHDR"
+pub const WARM_START_COOKIE: u32 = 0x7d83;
+
+/// Sentinel values
+pub const HEXDIGIT_INVALID: u32 = 999999; // 0x000f423f - returned by hexdigit() for invalid input
+
+/// Hardware constants
+pub const UART_BASE_CLOCK: u32 = 1843200; // 1.8432 MHz
+
+/// ctype table offsets
+pub const CTYPE_TOLOWER: u32 = 0x102; // offset to lowercase mapping in ctype_table
+
 /// Macro to create (value, "name") tuples where the string matches the token.
 macro_rules! M {
     ($name:tt) => {
@@ -96,6 +120,7 @@ impl SystemConstants {
                     (0x0038, "CRIME_TIMER_OFFSET"),
                     (0x0040, "CRIME_CPU_ERROR_ADDR"),
                     (0x0048, "CRIME_CPU_ERROR_STAT"),
+                    (0x0050, "CRIME_CPU_ERROR_ENA"),
                     (0x0200, "CRIME_MC_STATUS_CTRL"),
                     (0x0208, "CRIME_BANK_0_CTRL"),
                     (0x020c, "CRIME_BANK_0_CTRL + LO32_OFFSET"),
@@ -126,9 +151,21 @@ impl SystemConstants {
                     (0x2000, "CRIME_DE_MODE_SRC"),
                     (0x2008, "CRIME_DE_MODE_DST"),
                     (0x2018, "CRIME_DE_DRAWMODE"),
+                    (0x2020, "CRIME_DE_SCRMASK0"),
+                    (0x2028, "CRIME_DE_SCRMASK1"),
+                    (0x2030, "CRIME_DE_SCRMASK2"),
+                    (0x2038, "CRIME_DE_SCRMASK3"),
+                    (0x2040, "CRIME_DE_SCRMASK4"),
+                    (0x2048, "CRIME_DE_SCISSOR"),
+                    (0x2050, "CRIME_DE_WINOFFSET_SRC"),
+                    (0x2058, "CRIME_DE_WINOFFSET_DST"),
                     (0x2060, "CRIME_DE_PRIMITIVE"),
                     (0x2070, "CRIME_DE_X_VERTEX_0"),
                     (0x2074, "CRIME_DE_X_VERTEX_1"),
+                    (0x20a8, "CRIME_DE_XFER_STEP_X"),
+                    (0x20ac, "CRIME_DE_XFER_STEP_Y"),
+                    (0x20c0, "CRIME_DE_STIPPLE_MODE"),
+                    (0x20c4, "CRIME_DE_STIPPLE_PAT"),
                     (0x20d0, "CRIME_DE_FG"),
                     (0x21b0, "CRIME_DE_ROP"),
                     (0x21b8, "CRIME_DE_PLANEMASK"),
