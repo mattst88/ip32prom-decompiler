@@ -4,6 +4,30 @@
 /// Global Data Area address
 pub const GDA_ADDR: u32 = KSEG0 | 0x400;
 
+/// ARCS System Parameter Block (SPB) - Low memory structure used by firmware
+pub const ARCS_SPB: u32 = KSEG1 | 0x1000;
+
+/// SPB field offsets from ARCS_SPB base ("Advanced RISC Computing Specification" section 4.2.2)
+pub const ARCS_SPB_OFFSET_SIGNATURE: u32 = 0x00;
+pub const ARCS_SPB_OFFSET_LENGTH: u32 = 0x04;
+pub const ARCS_SPB_OFFSET_VERSION: u32 = 0x08;
+pub const ARCS_SPB_OFFSET_REVISION: u32 = 0x0a;
+pub const ARCS_SPB_OFFSET_RESTART_BLOCK: u32 = 0x0c;
+pub const ARCS_SPB_OFFSET_DEBUG_BLOCK: u32 = 0x10;
+pub const ARCS_SPB_OFFSET_GE_VECTOR: u32 = 0x14;
+pub const ARCS_SPB_OFFSET_UTLB_MISS_VECTOR: u32 = 0x18;
+pub const ARCS_SPB_OFFSET_FIRMWARE_VECTOR_LENGTH: u32 = 0x1c;
+pub const ARCS_SPB_OFFSET_FIRMWARE_VECTOR: u32 = 0x20;
+pub const ARCS_SPB_OFFSET_PRIVATE_VECTOR_LENGTH: u32 = 0x24;
+pub const ARCS_SPB_OFFSET_PRIVATE_VECTOR: u32 = 0x28;
+pub const ARCS_SPB_OFFSET_ADAPTER_COUNT: u32 = 0x2c;
+
+/// Exception handler code area (copied from firmware rwdata)
+pub const EXCEPTION_HANDLERS: u32 = KSEG1 | 0x1800;
+
+/// UTLB exception handler code area (copied from firmware rwdata)
+pub const UTLB_HANDLERS: u32 = KSEG1 | 0x1c00;
+
 /// Memory segment constants
 pub const KSEG0: u32 = 0x8000_0000;
 pub const KSEG1: u32 = 0xa000_0000;

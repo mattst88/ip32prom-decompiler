@@ -19,11 +19,17 @@ use crate::hardware::constants::{
     SystemConstants, UART_BASE_CLOCK, WARM_START_COOKIE,
 };
 use crate::hardware::memmap::{
-    BASE_AUDIO, BASE_CRIME, BASE_I2C, BASE_ISA, BASE_KBD_MS, BASE_MACE_PCI, BASE_RENDER, BASE_RTC,
-    KSEG0, KSEG1, KSEG2, MACE_ETHERNET, MACE_ISA_EXTERNAL, MACE_PCI, MACE_PERIPHERAL,
-    MACE_PERIPHERAL_AUDIO, MACE_PERIPHERAL_I2C, MACE_PERIPHERAL_ISA, MACE_PERIPHERAL_KBD_MS,
-    MACE_PERIPHERAL_UST, PHYS_BASE_CRIME, PHYS_BASE_MACE, PHYS_BASE_RENDER, PHYS_SYSTEM_ROM,
-    ROM_ALIGN, ROM_SIZE,
+    ARCS_SPB, ARCS_SPB_OFFSET_ADAPTER_COUNT,
+    ARCS_SPB_OFFSET_DEBUG_BLOCK, ARCS_SPB_OFFSET_FIRMWARE_VECTOR,
+    ARCS_SPB_OFFSET_FIRMWARE_VECTOR_LENGTH, ARCS_SPB_OFFSET_GE_VECTOR, ARCS_SPB_OFFSET_LENGTH,
+    ARCS_SPB_OFFSET_PRIVATE_VECTOR, ARCS_SPB_OFFSET_PRIVATE_VECTOR_LENGTH,
+    ARCS_SPB_OFFSET_RESTART_BLOCK, ARCS_SPB_OFFSET_REVISION, ARCS_SPB_OFFSET_SIGNATURE,
+    ARCS_SPB_OFFSET_UTLB_MISS_VECTOR, ARCS_SPB_OFFSET_VERSION, BASE_AUDIO, BASE_CRIME, BASE_I2C,
+    BASE_ISA, BASE_KBD_MS, BASE_MACE_PCI, BASE_RENDER, BASE_RTC, EXCEPTION_HANDLERS, KSEG0, KSEG1,
+    KSEG2, MACE_ETHERNET, MACE_ISA_EXTERNAL, MACE_PCI, MACE_PERIPHERAL, MACE_PERIPHERAL_AUDIO,
+    MACE_PERIPHERAL_I2C, MACE_PERIPHERAL_ISA, MACE_PERIPHERAL_KBD_MS, MACE_PERIPHERAL_UST,
+    PHYS_BASE_CRIME, PHYS_BASE_MACE, PHYS_BASE_RENDER, PHYS_SYSTEM_ROM, ROM_ALIGN, ROM_SIZE,
+    UTLB_HANDLERS,
 };
 use crate::mips::format::{CACHE_OP_NAMES, CACHE_TYPE_NAMES};
 use crate::mips::regs::{CP0_REG_NAMES, GPR_NAMES};
@@ -119,6 +125,7 @@ pub fn generate_definitions_header(
 
     emit_elf_constants(&mut file)?;
     emit_memory_segments(&mut file)?;
+    emit_low_memory_areas(&mut file)?;
     emit_shdr_constants(&mut file)?;
     emit_magic_constants(&mut file)?;
     emit_time_constants(&mut file)?;
@@ -165,6 +172,33 @@ fn emit_memory_segments(file: &mut File) -> Result<()> {
     writeln!(file)?;
     writeln!(file, "/* Register Access */")?;
     emit_define!(file, "LO32_OFFSET", "0x04", "Offset to low 32 bits of 64-bit register (big-endian)")?;
+    writeln!(file)?;
+    Ok(())
+}
+
+/// Emit low memory area definitions used by firmware
+#[rustfmt::skip]
+fn emit_low_memory_areas(file: &mut File) -> Result<()> {
+    writeln!(file, "/* Low Memory Areas */")?;
+    emit_define_hex!(file, ARCS_SPB, "ARCS System Parameter Block")?;
+    writeln!(file)?;
+    writeln!(file, "/* ARCS SPB Field Offsets */")?;
+    emit_define_hex!(file, ARCS_SPB_OFFSET_SIGNATURE, "SPB Signature")?;
+    emit_define_hex!(file, ARCS_SPB_OFFSET_LENGTH, "SPB Length")?;
+    emit_define_hex!(file, ARCS_SPB_OFFSET_VERSION, "Version")?;
+    emit_define_hex!(file, ARCS_SPB_OFFSET_REVISION, "Revision")?;
+    emit_define_hex!(file, ARCS_SPB_OFFSET_RESTART_BLOCK, "Pointer to Restart Block")?;
+    emit_define_hex!(file, ARCS_SPB_OFFSET_DEBUG_BLOCK, "Pointer to Debug Block")?;
+    emit_define_hex!(file, ARCS_SPB_OFFSET_GE_VECTOR, "GEVector")?;
+    emit_define_hex!(file, ARCS_SPB_OFFSET_UTLB_MISS_VECTOR, "UTLBMiss Vector")?;
+    emit_define_hex!(file, ARCS_SPB_OFFSET_FIRMWARE_VECTOR_LENGTH, "Firmware Vector Length")?;
+    emit_define_hex!(file, ARCS_SPB_OFFSET_FIRMWARE_VECTOR, "Pointer to Firmware Vector")?;
+    emit_define_hex!(file, ARCS_SPB_OFFSET_PRIVATE_VECTOR_LENGTH, "Private Vector Length")?;
+    emit_define_hex!(file, ARCS_SPB_OFFSET_PRIVATE_VECTOR, "Pointer to Private Vector")?;
+    emit_define_hex!(file, ARCS_SPB_OFFSET_ADAPTER_COUNT, "Adapter Count")?;
+    writeln!(file)?;
+    emit_define_hex!(file, EXCEPTION_HANDLERS, "Exception handler code area")?;
+    emit_define_hex!(file, UTLB_HANDLERS, "UTLB exception handler code area")?;
     writeln!(file)?;
     Ok(())
 }
