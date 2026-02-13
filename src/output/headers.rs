@@ -29,6 +29,10 @@ use crate::hardware::memmap::{
     KSEG2, MACE_ETHERNET, MACE_ISA_EXTERNAL, MACE_PCI, MACE_PERIPHERAL, MACE_PERIPHERAL_AUDIO,
     MACE_PERIPHERAL_I2C, MACE_PERIPHERAL_ISA, MACE_PERIPHERAL_KBD_MS, MACE_PERIPHERAL_UST,
     PHYS_BASE_CRIME, PHYS_BASE_MACE, PHYS_BASE_RENDER, PHYS_SYSTEM_ROM, ROM_ALIGN, ROM_SIZE,
+    RTSB_OFFSET_BOOT_MASTER_ID, RTSB_OFFSET_BOOT_STATUS, RTSB_OFFSET_CHECKSUM, RTSB_OFFSET_LENGTH,
+    RTSB_OFFSET_NEXT_RSTB, RTSB_OFFSET_PROCESSOR_ID, RTSB_OFFSET_RESTART_ADDRESS,
+    RTSB_OFFSET_REVISION, RTSB_OFFSET_SAVED_STATE_AREA, RTSB_OFFSET_SAVE_AREA_LENGTH,
+    RTSB_OFFSET_SIGNATURE, RTSB_OFFSET_VERSION,
     UTLB_HANDLERS,
 };
 use crate::mips::format::{CACHE_OP_NAMES, CACHE_TYPE_NAMES};
@@ -196,6 +200,20 @@ fn emit_low_memory_areas(file: &mut File) -> Result<()> {
     emit_define_hex!(file, ARCS_SPB_OFFSET_PRIVATE_VECTOR_LENGTH, "Private Vector Length")?;
     emit_define_hex!(file, ARCS_SPB_OFFSET_PRIVATE_VECTOR, "Pointer to Private Vector")?;
     emit_define_hex!(file, ARCS_SPB_OFFSET_ADAPTER_COUNT, "Adapter Count")?;
+    writeln!(file)?;
+    writeln!(file, "/* Restart Block Field Offsets */")?;
+    emit_define_hex!(file, RTSB_OFFSET_SIGNATURE, "RSTB Signature")?;
+    emit_define_hex!(file, RTSB_OFFSET_LENGTH, "RSTB Length")?;
+    emit_define_hex!(file, RTSB_OFFSET_VERSION, "Version")?;
+    emit_define_hex!(file, RTSB_OFFSET_REVISION, "Revision")?;
+    emit_define_hex!(file, RTSB_OFFSET_NEXT_RSTB, "Pointer to Next Restart Block")?;
+    emit_define_hex!(file, RTSB_OFFSET_RESTART_ADDRESS, "Restart Address")?;
+    emit_define_hex!(file, RTSB_OFFSET_BOOT_MASTER_ID, "Boot Master ID")?;
+    emit_define_hex!(file, RTSB_OFFSET_PROCESSOR_ID, "Processor ID")?;
+    emit_define_hex!(file, RTSB_OFFSET_BOOT_STATUS, "Boot Status")?;
+    emit_define_hex!(file, RTSB_OFFSET_CHECKSUM, "Checksum")?;
+    emit_define_hex!(file, RTSB_OFFSET_SAVE_AREA_LENGTH, "Save Area Length")?;
+    emit_define_hex!(file, RTSB_OFFSET_SAVED_STATE_AREA, "Saved State Area")?;
     writeln!(file)?;
     emit_define_hex!(file, EXCEPTION_HANDLERS, "Exception handler code area")?;
     emit_define_hex!(file, UTLB_HANDLERS, "UTLB exception handler code area")?;

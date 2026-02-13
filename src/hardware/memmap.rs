@@ -22,6 +22,20 @@ pub const ARCS_SPB_OFFSET_PRIVATE_VECTOR_LENGTH: u32 = 0x24;
 pub const ARCS_SPB_OFFSET_PRIVATE_VECTOR: u32 = 0x28;
 pub const ARCS_SPB_OFFSET_ADAPTER_COUNT: u32 = 0x2c;
 
+/// Restart Block field offsets ("Advanced RISC Computing Specification" section 4.2.3)
+pub const RTSB_OFFSET_SIGNATURE: u32 = 0x00;
+pub const RTSB_OFFSET_LENGTH: u32 = 0x04;
+pub const RTSB_OFFSET_VERSION: u32 = 0x08;
+pub const RTSB_OFFSET_REVISION: u32 = 0x0a;
+pub const RTSB_OFFSET_NEXT_RSTB: u32 = 0x0c;
+pub const RTSB_OFFSET_RESTART_ADDRESS: u32 = 0x10;
+pub const RTSB_OFFSET_BOOT_MASTER_ID: u32 = 0x14;
+pub const RTSB_OFFSET_PROCESSOR_ID: u32 = 0x18;
+pub const RTSB_OFFSET_BOOT_STATUS: u32 = 0x1c;
+pub const RTSB_OFFSET_CHECKSUM: u32 = 0x20;
+pub const RTSB_OFFSET_SAVE_AREA_LENGTH: u32 = 0x24;
+pub const RTSB_OFFSET_SAVED_STATE_AREA: u32 = 0x28;
+
 /// Exception handler code area (copied from firmware rwdata)
 pub const EXCEPTION_HANDLERS: u32 = KSEG1 | 0x1800;
 
