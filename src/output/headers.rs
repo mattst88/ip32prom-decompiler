@@ -221,6 +221,11 @@ fn emit_magic_constants(file: &mut File) -> Result<()> {
     emit_define!(file, "GDA_ADDR", "(KSEG0 | 0x400)")?;
     writeln!(file)?;
 
+    writeln!(file, "/* Stack addresses */")?;
+    emit_define!(file, "SLOADER_STACK", "(KSEG0 | 0x1000)")?;
+    emit_define!(file, "POST1_STACK", "(KSEG1 | 0x1000)")?;
+    writeln!(file)?;
+
     writeln!(file, "/* ctype Table Offsets */")?;
     emit_define!(file, "CTYPE_TOLOWER", format_args!("0x{:03x}", CTYPE_TOLOWER))?;
     writeln!(file)?;
