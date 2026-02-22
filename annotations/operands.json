@@ -76,6 +76,7 @@
 { "0x8100add0": {                    "0x40": "SHDR_OFFSET_SUBSECTION_HEADER" } },
 { "0x8100ade0": {                    "0x40": "SHDR_OFFSET_SUBSECTION_HEADER" } },
 { "0x8100c050": {                       "8": "ARCS_SPB_OFFSET_VERSION" } },
+{ "0x8100c084": {                     "0xa": "ARCS_SPB_OFFSET_REVISION" } },
 { "0x8100c898": {                  "0x2000": "CRIME_DE_MODE_SRC" } },
 { "0x8100c8a8": {                  "0x2008": "CRIME_DE_MODE_DST" } },
 { "0x8100c8dc": {                  "0x1000": "CRIME_RE_TLB_A" } },
