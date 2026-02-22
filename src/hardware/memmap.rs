@@ -36,11 +36,11 @@ pub const RTSB_OFFSET_CHECKSUM: u32 = 0x20;
 pub const RTSB_OFFSET_SAVE_AREA_LENGTH: u32 = 0x24;
 pub const RTSB_OFFSET_SAVED_STATE_AREA: u32 = 0x28;
 
-/// Exception handler code area (copied from firmware rwdata)
-pub const EXCEPTION_HANDLERS: u32 = KSEG1 | 0x1800;
+/// Firmware vector table (copied from firmware rwdata)
+pub const FIRMWARE_VECTOR: u32 = KSEG1 | 0x1800;
 
-/// UTLB exception handler code area (copied from firmware rwdata)
-pub const UTLB_HANDLERS: u32 = KSEG1 | 0x1c00;
+/// Private vector table (copied from firmware rwdata)
+pub const PRIVATE_VECTOR: u32 = KSEG1 | 0x1c00;
 
 /// Restart Block field offsets ("Advanced RISC Computing Specification" section 4.3.7)
 pub const FV_OFFSET_LOAD: u32 = 0x00;
