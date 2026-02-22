@@ -42,6 +42,45 @@ pub const EXCEPTION_HANDLERS: u32 = KSEG1 | 0x1800;
 /// UTLB exception handler code area (copied from firmware rwdata)
 pub const UTLB_HANDLERS: u32 = KSEG1 | 0x1c00;
 
+/// Restart Block field offsets ("Advanced RISC Computing Specification" section 4.3.7)
+pub const FV_OFFSET_LOAD: u32 = 0x00;
+pub const FV_OFFSET_INVOKE: u32 = 0x04;
+pub const FV_OFFSET_EXECUTE: u32 = 0x08;
+pub const FV_OFFSET_HALT: u32 = 0x0c;
+pub const FV_OFFSET_POWER_DOWN: u32 = 0x10;
+pub const FV_OFFSET_RESTART: u32 = 0x14;
+pub const FV_OFFSET_REBOOT: u32 = 0x18;
+pub const FV_OFFSET_ENTER_INTERACTIVE_MODE: u32 = 0x1c;
+/* Reserved: 0x20 */
+pub const FV_OFFSET_GET_PEER: u32 = 0x24;
+pub const FV_OFFSET_GET_CHILD: u32 = 0x28;
+pub const FV_OFFSET_GET_PARENT: u32 = 0x2c;
+pub const FV_OFFSET_GET_CONFIGURATION_DATA: u32 = 0x30;
+pub const FV_OFFSET_ADD_CHILD: u32 = 0x34;
+pub const FV_OFFSET_DELETE_COMPONENT: u32 = 0x38;
+pub const FV_OFFSET_GET_COMPONENT: u32 = 0x3c;
+pub const FV_OFFSET_SAVE_CONFIGURATION: u32 = 0x40;
+pub const FV_OFFSET_GET_SYSTEM_ID: u32 = 0x44;
+pub const FV_OFFSET_GET_MEMORY_DESCRIPTOR: u32 = 0x48;
+/* Reserved: 0x4c */
+pub const FV_OFFSET_GET_TIME: u32 = 0x50;
+pub const FV_OFFSET_GET_RELATIVE_TIME: u32 = 0x54;
+pub const FV_OFFSET_GET_DIRECTORY_ENTRY: u32 = 0x58;
+pub const FV_OFFSET_OPEN: u32 = 0x5c;
+pub const FV_OFFSET_CLOSE: u32 = 0x60;
+pub const FV_OFFSET_READ: u32 = 0x64;
+pub const FV_OFFSET_GET_READ_STATUS: u32 = 0x64;
+pub const FV_OFFSET_WRITE: u32 = 0x6c;
+pub const FV_OFFSET_SEEK: u32 = 0x70;
+pub const FV_OFFSET_MOUNT: u32 = 0x74;
+pub const FV_OFFSET_GET_ENVIRONMENT_VARIABLE: u32 = 0x78;
+pub const FV_OFFSET_SET_ENVIRONMENT_VARIABLE: u32 = 0x7c;
+pub const FV_OFFSET_GET_FILE_INFORMATION: u32 = 0x80;
+pub const FV_OFFSET_SET_FILE_INFORMATION: u32 = 0x84;
+pub const FV_OFFSET_FLUSH_ALL_CACHES: u32 = 0x88;
+pub const FV_OFFSET_TEST_UNICODE_CHARACTER: u32 = 0x8c;
+pub const FV_OFFSET_GET_DISPLAY_STATUS: u32 = 0x90;
+
 /// Memory segment constants
 pub const KSEG0: u32 = 0x8000_0000;
 pub const KSEG1: u32 = 0xa000_0000;
